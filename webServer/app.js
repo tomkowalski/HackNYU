@@ -5,6 +5,10 @@ var bodyParser = require('body-parser')
 var multer  = require('multer')
 var upload = multer({ dest: 'storage/' })
 var mysql = require('mysql');
+var env = require('node-env-file');
+if(process.env.NODE_ENV != "Production") {
+	env('.env');
+}
 var connection = mysql.createConnection(process.env.JAWSDB_URL);
 
 connection.connect();
@@ -19,9 +23,12 @@ app.set('port', (process.env.PORT || 5000))
 
 
 app.get('/', function(req, res) {
-  res.render('index', {
-    title: 'Home Page'
+	connection.query('SELECT * FROM User', function (error, results, fields) {
+  	//console.log();
+  	res.render('index', {
+    	title: 'Home ' + results[0].UserName
   });
+});
 });
 
 app.listen(app.get('port'), function() {
