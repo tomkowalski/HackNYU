@@ -73,7 +73,7 @@
         <!-- Replace with your Fabric Crashlytics key from Fabric.io -->
         <meta-data
             android:name="io.fabric.ApiKey"
-            android:value="${fabricCrashlyticsApiKey}" />
+            android:value="fb835bab41c1bfb90b04e963bebf2b40d3b97123" />
     </application>
 
 </manifest>
