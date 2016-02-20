@@ -17,16 +17,18 @@
         android:layout_height="wrap_content"
         android:text="Add Data"
         android:id="@+id/add_data_button"
+        android:layout_marginTop="86dp"
+        android:textSize="36dp"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="103dp" />
+        android:layout_centerHorizontal="true" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="View Data"
         android:id="@+id/view_data_button"
+        android:textSize="36dp"
         android:layout_below="@+id/add_data_button"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="136dp" />
+        android:layout_marginTop="131dp" />
 </RelativeLayout>
