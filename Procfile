@@ -1,1 +1,1 @@
-web: node ./webserver/app.js
+web: cd webServer && npm start
