@@ -40,26 +40,19 @@
 
       function drawRegionsMap() {
 
-        var countries =[['Country', 'Percent of Total Machines In Use']];
-        countries.push(['South Africa', 8]);
-        countries.push(['India', 16]);
-        countries.push(['Egypt', 25]);
-        countries.push(['China', 6]);
-        countries.push(['Japan', 1]);
-        countries.push(['United States', 27]);
-        countries.push(['Morocco', 13]);
-        countries.push(['Chile', 31]);
-        countries.push(['Mexico', 22]);
-        countries.push(['Germany', 56]);
-        countries.push(['Ireland', 34]);
-        countries.push(['Turkey', 12]);
-        countries.push(['United Kingdom', 39]);
-        countries.push(['Sweden', 52]);
-        countries.push(['Argentina', 74]);
-        countries.push(['Iraq', 2]);
+        var countries =[['Country', 'Percent of Total Machines In Use', 'Country Code']];
+        countries.push(['South Africa', 8, 'ZA']);
+        countries.push(['India', 16, 'IN']);
+        countries.push(['Egypt', 25, 'EG']);
+        countries.push(['China', 6, 'CH']);
 
+        var temp = [];
+        for (var i = 0; i < countries.length; ++i)
+        {
+            temp.push([countries[i][0], countries[i][1]]);
+        }
 
-        var data = google.visualization.arrayToDataTable(countries);
+        var data = google.visualization.arrayToDataTable(temp);
         var options = {legend: {textStyle: {color: 'white'}},
                         colorAxis: {colors: ['FFFFE0', 'yellow', 'orange', 'red', '8B0000']}};
 
@@ -74,6 +67,9 @@
                     message += '{row:' + item.row + '}';
             }
             alert('You selected ' + countries[item.row+1][0]);
+            options['region'] = countries[item.row+1][2];
+            options['legend'] = 'none';
+            chart.draw(data, options);
         }
 
         google.visualization.events.addListener(chart, 'select', myClickHandler);
