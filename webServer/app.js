@@ -1,7 +1,13 @@
 var express = require('express');
 
 var app = express();
-
+var bodyParser = require('body-parser')
+var multer  = require('multer')
+var upload = multer({ dest: 'storage/' })
+// parse application/x-www-form-urlencoded 
+app.use(bodyParser.urlencoded({ extended: false }));
+// parse application/json 
+app.use(bodyParser.json()); 
 app.set('views', './views');
 app.set('view engine', 'jade');
 app.set('port', (process.env.PORT || 5000))
