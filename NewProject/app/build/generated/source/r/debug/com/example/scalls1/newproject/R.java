@@ -2250,7 +2250,7 @@ containing a value of this type.
         public static final int design_menu_item_text=0x7f0c007b;
         public static final int design_navigation_view=0x7f0c007a;
         public static final int disableHome=0x7f0c000e;
-        public static final int drawer_layout=0x7f0c0072;
+        public static final int drawer_layout=0x7f0c0071;
         public static final int editText=0x7f0c0076;
         public static final int edit_query=0x7f0c005c;
         public static final int end=0x7f0c0020;
@@ -2260,7 +2260,7 @@ containing a value of this type.
         public static final int exitUntilCollapsed=0x7f0c0017;
         public static final int expand_activities_button=0x7f0c003e;
         public static final int expanded_menu=0x7f0c0051;
-        public static final int fab=0x7f0c0071;
+        public static final int fab=0x7f0c0073;
         public static final int fill=0x7f0c002d;
         public static final int fill_horizontal=0x7f0c002e;
         public static final int fill_vertical=0x7f0c0021;
@@ -2291,7 +2291,7 @@ containing a value of this type.
         public static final int nav_send=0x7f0c0092;
         public static final int nav_share=0x7f0c0091;
         public static final int nav_slideshow=0x7f0c008f;
-        public static final int nav_view=0x7f0c0073;
+        public static final int nav_view=0x7f0c0072;
         public static final int navigation_header_container=0x7f0c0079;
         public static final int never=0x7f0c0035;
         public static final int none=0x7f0c0010;
