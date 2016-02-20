@@ -1,0 +1,27 @@
+{
+  "name": "brilliance-backend",
+  "version": "1.0.0",
+  "description": "A webserver for brilliance impact",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/scalls/HackNYU.git"
+  },
+  "keywords": [
+    "brilliance"
+  ],
+  "author": "Tom Kowalski, Darren Geng, Tj Passaro, Steven Scally",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/scalls/HackNYU/issues"
+  },
+  "homepage": "https://github.com/scalls/HackNYU#readme",
+  "dependencies": {
+    "express": "^4.13.4",
+    "forms": "^1.1.4",
+    "jade": "^1.11.0"
+  }
+}
