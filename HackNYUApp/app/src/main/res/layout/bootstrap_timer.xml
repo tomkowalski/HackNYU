@@ -5,27 +5,27 @@
               android:layout_width="match_parent"
               android:layout_height="match_parent">
 
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:inputType="time"
-        android:ems="10"
-        android:id="@+id/editText" />
-
-    <Button
-        android:id="@+id/stop"
+    <TextView
+        android:id="@+id/chronometer"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="@string/stop"
-        android:visibility="gone"
-        style="@style/BootstrapButton"
+        android:text="00:00:00"
+        style="@style/TimerChronometer"
         />
 
     <Button
         android:id="@+id/start"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="Start"
+        android:text="@string/start"
+        style="@style/BootstrapButton"
+        />
+
+    <Button
+        android:id="@+id/stop"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/stop"
         android:visibility="gone"
         style="@style/BootstrapButton"
         />

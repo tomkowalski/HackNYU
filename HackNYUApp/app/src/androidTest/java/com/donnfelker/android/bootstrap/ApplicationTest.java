@@ -1,4 +1,5 @@
-package com.hacknyu.brill.darrengeng;
+package com.donnfelker.android.bootstrap;
+
 
 import android.app.Application;
 import android.test.ApplicationTestCase;

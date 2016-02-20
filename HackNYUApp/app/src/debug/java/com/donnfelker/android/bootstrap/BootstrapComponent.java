@@ -1,5 +1,7 @@
-package com.hacknyu.brill.darrengeng;
-
+package com.donnfelker.android.bootstrap;
+import com.hacknyu.brill.darrengeng.BootstrapApplication;
+import com.hacknyu.brill.darrengeng.AndroidModule;
+import com.hacknyu.brill.darrengeng.BootstrapModule;
 import com.hacknyu.brill.darrengeng.authenticator.BootstrapAuthenticatorActivity;
 import com.hacknyu.brill.darrengeng.core.TimerService;
 import com.hacknyu.brill.darrengeng.ui.BootstrapActivity;
