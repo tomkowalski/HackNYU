@@ -114,8 +114,8 @@ dependencies {
 
     // Dependency Injection
     compile 'com.google.dagger:dagger:2.0'
-
-
+    // GraphView
+    compile 'com.jjoe64:graphview:4.0.1'
     // View Injection
     compile 'com.jakewharton:butterknife:7.0.1'
 
