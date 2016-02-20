@@ -27,6 +27,7 @@
     "mysql": "^2.10.2",
     "body-parser": "^1.15.0",
     "bootstrap": "3.3.6",
-    "password-hash": "1.2.2"
+    "password-hash": "1.2.2",
+    "node-env-file": "0.1.8"
   }
 }
