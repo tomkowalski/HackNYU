@@ -4,6 +4,11 @@ var app = express();
 var bodyParser = require('body-parser')
 var multer  = require('multer')
 var upload = multer({ dest: 'storage/' })
+var mysql = require('mysql');
+var connection = mysql.createConnection(process.env.JAWSDB_URL);
+
+connection.connect();
+
 // parse application/x-www-form-urlencoded 
 app.use(bodyParser.urlencoded({ extended: false }));
 // parse application/json 
