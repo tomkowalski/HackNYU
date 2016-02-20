@@ -1,12 +1,9 @@
 
-
 package com.hacknyu.brill.darrengeng;
+import com.donnfelker.android.bootstrap.BootstrapComponent;
+import com.donnfelker.android.bootstrap.DaggerBootstrapComponent;
 
 import android.app.Application;
-import android.content.Context;
-
-import com.crashlytics.android.Crashlytics;
-import io.fabric.sdk.android.Fabric;
 
 /**
  * HackNYU application

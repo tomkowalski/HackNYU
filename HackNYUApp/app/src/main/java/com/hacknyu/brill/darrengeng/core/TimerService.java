@@ -12,7 +12,6 @@ import android.os.SystemClock;
 import android.support.v4.app.NotificationCompat;
 
 import com.hacknyu.brill.darrengeng.BootstrapApplication;
-import com.hacknyu.brill.darrengeng.DaggerBootstrapComponent;
 import com.hacknyu.brill.darrengeng.R;
 import com.hacknyu.brill.darrengeng.ui.BootstrapTimerActivity;
 import com.hacknyu.brill.darrengeng.util.Strings;

@@ -18,8 +18,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 
+import com.crashlytics.android.Crashlytics;
 import com.hacknyu.brill.darrengeng.BootstrapApplication;
-import com.hacknyu.brill.darrengeng.BootstrapComponent;
 import com.hacknyu.brill.darrengeng.BootstrapServiceProvider;
 import com.hacknyu.brill.darrengeng.R;
 import com.hacknyu.brill.darrengeng.core.BootstrapService;
@@ -28,6 +28,7 @@ import com.hacknyu.brill.darrengeng.util.SafeAsyncTask;
 import com.hacknyu.brill.darrengeng.util.UIUtils;
 import com.squareup.otto.Subscribe;
 
+import io.fabric.sdk.android.Fabric;
 import javax.inject.Inject;
 
 import butterknife.ButterKnife;
@@ -58,6 +59,7 @@ public class MainActivity extends BootstrapActivity {
         requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
 
         super.onCreate(savedInstanceState);
+        Fabric.with(this, new Crashlytics());
         BootstrapApplication.component().inject(this);
 
         if(isTablet()) {
