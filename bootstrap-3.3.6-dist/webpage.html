@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>Bootstrap 101 Template</title>
+
+    <!-- Bootstrap -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <style>
+      #map {
+        width: 800px;
+        height: 600px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Hello, world!</h1>
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="js/bootstrap.min.js"></script>
+
+    <div id="map"></div>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <script type="text/javascript">
+      google.charts.load('current', {'packages':['geochart']});
+      google.charts.setOnLoadCallback(drawRegionsMap);
+
+      function drawRegionsMap() {
+
+        var countries =[['Country', 'Percent of Total Machines In Use']];
+        countries.push(['South Africa', 8]);
+        countries.push(['India', 16]);
+        countries.push(['Egypt', 25]);
+        countries.push(['China', 6]);
+        countries.push(['Japan', 1]);
+        countries.push(['United States', 27]);
+        countries.push(['Morocco', 13]);
+        countries.push(['Chile', 31]);
+        countries.push(['Mexico', 22]);
+        countries.push(['Germany', 56]);
+        countries.push(['Ireland', 34]);
+        countries.push(['Turkey', 12]);
+        countries.push(['United Kingdom', 39]);
+        countries.push(['Sweden', 52]);
+        countries.push(['Argentina', 74]);
+        countries.push(['Iraq', 2]);
+
+
+        var data = google.visualization.arrayToDataTable(countries);
+        var options = {legend: {textStyle: {color: 'white'}},
+                        colorAxis: {colors: ['FFFFE0', 'yellow', 'orange', 'red', '8B0000']}};
+
+        var chart = new google.visualization.GeoChart(document.getElementById("map"));
+
+        chart.draw(data, options);
+        chart.le
+      }
+    </script>
+  </body>
+</html>
