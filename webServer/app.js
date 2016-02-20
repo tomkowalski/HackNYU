@@ -30,7 +30,10 @@ app.get('/', function(req, res) {
 	connection.query('SELECT * FROM User', function (error, results, fields) {
   	//console.log();
   	res.render('index', {
-    	title: 'Home ' + results[0].UserName
+    	title: 'Home ' + results[0].UserName,
+    	user: {
+    		fullName: "tgay"
+    	}
   });
 });
 });
