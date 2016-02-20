@@ -65,8 +65,13 @@
 
         var chart = new google.visualization.GeoChart(document.getElementById("map"));
 
+        function myClickHandler(){
+            var selection = chart.getSelection();
+            alert("You selected something");
+        }
+
+        google.visualization.events.addListener(chart, 'select', myClickHandler);
         chart.draw(data, options);
-        chart.le
       }
     </script>
   </body>
