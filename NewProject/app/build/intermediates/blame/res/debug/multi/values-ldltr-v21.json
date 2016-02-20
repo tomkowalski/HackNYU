@@ -1,29 +1,5 @@
 [
     {
-        "outputFile": "C:\\Users\\scalls1\\Documents\\GitHub\\Hackathons\\HackNYU\\NewProject\\app\\build\\intermediates\\res\\merged\\debug\\values-ldltr-v21\\values-ldltr-v21.xml",
-        "map": [
-            {
-                "to": {
-                    "startLine": 2,
-                    "startColumn": 4,
-                    "startOffset": 55,
-                    "endColumn": 112,
-                    "endOffset": 163
-                },
-                "from": {
-                    "file": "C:\\Users\\scalls1\\Documents\\GitHub\\Hackathons\\HackNYU\\NewProject\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\values-ldltr-v21\\values-ldltr-v21.xml",
-                    "position": {
-                        "startLine": 4,
-                        "startColumn": 4,
-                        "startOffset": 240,
-                        "endColumn": 112,
-                        "endOffset": 348
-                    }
-                }
-            }
-        ]
-    },
-    {
         "outputFile": "C:\\Users\\darrengeng\\GitProjects\\HackNYU\\NewProject\\app\\build\\intermediates\\res\\merged\\debug\\values-ldltr-v21\\values-ldltr-v21.xml",
         "map": [
             {
@@ -48,7 +24,7 @@
         ]
     },
     {
-        "outputFile": "C:\\Users\\darrengeng\\GitProjects\\HackNYU\\NewProject\\C:\\Users\\scalls1\\AndroidStudioProjects\\NewProject\\app\\build\\intermediates\\res\\merged\\debug\\values-ldltr-v21\\values-ldltr-v21.xml",
+        "outputFile": "C:\\Users\\scalls1\\Documents\\GitHub\\Hackathons\\HackNYU\\NewProject\\app\\build\\intermediates\\res\\merged\\debug\\values-ldltr-v21\\values-ldltr-v21.xml",
         "map": [
             {
                 "to": {
@@ -59,7 +35,7 @@
                     "endOffset": 163
                 },
                 "from": {
-                    "file": "C:\\Users\\darrengeng\\GitProjects\\HackNYU\\NewProject\\C:\\Users\\scalls1\\AndroidStudioProjects\\NewProject\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\values-ldltr-v21\\values-ldltr-v21.xml",
+                    "file": "C:\\Users\\scalls1\\Documents\\GitHub\\Hackathons\\HackNYU\\NewProject\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\values-ldltr-v21\\values-ldltr-v21.xml",
                     "position": {
                         "startLine": 4,
                         "startColumn": 4,
@@ -84,6 +60,30 @@
                 },
                 "from": {
                     "file": "C:\\Users\\darrengeng\\GitProjects\\HackNYU\\NewProject\\C:\\Users\\scalls1\\AndroidStudioProjects\\Brilliance\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\values-ldltr-v21\\values-ldltr-v21.xml",
+                    "position": {
+                        "startLine": 4,
+                        "startColumn": 4,
+                        "startOffset": 240,
+                        "endColumn": 112,
+                        "endOffset": 348
+                    }
+                }
+            }
+        ]
+    },
+    {
+        "outputFile": "C:\\Users\\darrengeng\\GitProjects\\HackNYU\\NewProject\\C:\\Users\\scalls1\\AndroidStudioProjects\\NewProject\\app\\build\\intermediates\\res\\merged\\debug\\values-ldltr-v21\\values-ldltr-v21.xml",
+        "map": [
+            {
+                "to": {
+                    "startLine": 2,
+                    "startColumn": 4,
+                    "startOffset": 55,
+                    "endColumn": 112,
+                    "endOffset": 163
+                },
+                "from": {
+                    "file": "C:\\Users\\darrengeng\\GitProjects\\HackNYU\\NewProject\\C:\\Users\\scalls1\\AndroidStudioProjects\\NewProject\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\values-ldltr-v21\\values-ldltr-v21.xml",
                     "position": {
                         "startLine": 4,
                         "startColumn": 4,
