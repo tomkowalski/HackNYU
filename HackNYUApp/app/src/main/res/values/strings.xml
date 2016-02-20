@@ -43,6 +43,8 @@
     <string name="navigation_drawer_open">Drawer Open</string>
     <string name="navigation_drawer_close">Drawer Close</string>
     <string name="title_home">Home</string>
+    <string name="title_add_data">Add Data</string>
+    <string name="title_view_data">View Data</string>
 
 
 </resources>
