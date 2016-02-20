@@ -18,6 +18,9 @@
   "bugs": {
     "url": "https://github.com/scalls/HackNYU/issues"
   },
+  "engines": {
+    "node": "^4.3.0"
+  },
   "homepage": "https://github.com/scalls/HackNYU#readme",
   "dependencies": {
     "express": "^4.13.4",
