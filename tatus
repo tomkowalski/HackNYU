@@ -1,0 +1,111 @@
+[33mcommit e299b9e41d77364bfb94679f02e9e9f17dc7c125[m
+Author: scalls <scalls@rpi.edu>
+Date:   Sat Feb 20 13:13:10 2016 -0500
+
+    Updated NewProject
+
+[33mcommit 017251b580b9ffe8cd4ef387f6de1c99a29e0252[m
+Author: Darren <darrengeng96@gmail.com>
+Date:   Sat Feb 20 12:40:47 2016 -0500
+
+    Readded HackNYUApp
+
+[33mcommit 4f677a7df7330fc94109bf2f56008b301cd7d54c[m
+Author: Darren <darrengeng96@gmail.com>
+Date:   Sat Feb 20 12:39:26 2016 -0500
+
+    Removed HackNYUApp temporarily due to a bug
+
+[33mcommit 850ad1b62bd71a76c3fbfafe69598e51a5232a12[m
+Merge: 060938b 4ba0c8c
+Author: Darren <darrengeng96@gmail.com>
+Date:   Sat Feb 20 12:35:35 2016 -0500
+
+    Merge branch 'master' of https://github.com/scalls/HackNYU
+
+[33mcommit 060938b843c265e1b095855d12f2afa3ef5ea294[m
+Author: Darren <darrengeng96@gmail.com>
+Date:   Sat Feb 20 12:35:23 2016 -0500
+
+    Added Bootstrapped Android frontend
+
+[33mcommit 4ba0c8cd8ed93e1f01f573af8ca1d05d54e6c242[m
+Author: scalls <scalls@rpi.edu>
+Date:   Sat Feb 20 12:25:05 2016 -0500
+
+    Updated strings.xml
+
+[33mcommit 1960985d7215f298836a6b7bbf812c8751713140[m
+Author: tjpassaro <thomaspassaro@Thomass-MacBook-Pro.local>
+Date:   Sat Feb 20 08:00:02 2016 -0500
+
+    Click event handler with accurate country
+
+[33mcommit 4d90edb374e5a2f8a1f2fea4adcd252960a0f7c1[m
+Author: tjpassaro <thomaspassaro@Thomass-MacBook-Pro.local>
+Date:   Sat Feb 20 07:13:13 2016 -0500
+
+    Click event handler without new map
+
+[33mcommit 536b403e6ade5ce3b92418d6066943004a4007a6[m
+Author: tjpassaro <thomaspassaro@Thomass-MacBook-Pro.local>
+Date:   Sat Feb 20 06:42:24 2016 -0500
+
+    Basic geochart without markers and real data
+
+[33mcommit 0eced8acd91f5e7ba7d85ab9bbe8a73d533e9982[m
+Author: scalls <scalls@rpi.edu>
+Date:   Sat Feb 20 05:57:05 2016 -0500
+
+    Updated NewProject
+
+[33mcommit 1f7bddf823b282049278731cb85a68552e725a43[m
+Merge: 5e50701 01e8bd2
+Author: scalls <scalls@rpi.edu>
+Date:   Sat Feb 20 04:42:50 2016 -0500
+
+    Merge branch 'master' of https://github.com/scalls/HackNYU
+
+[33mcommit 5e507019e95db148a55371ba50f9362a8b76b8db[m
+Author: scalls <scalls@rpi.edu>
+Date:   Sat Feb 20 04:42:19 2016 -0500
+
+    Honestly not even sure what I changed between this and the last commit
+
+[33mcommit 01e8bd2f5d9af20835c62002e487a6bea2cf5e3b[m
+Merge: 98300dc 200f0e0
+Author: Tom Kowalski <kowalski.tom0@gmail.com>
+Date:   Sat Feb 20 04:11:23 2016 -0500
+
+    Merge branch 'master' of github.com:scalls/HackNYU
+
+[33mcommit 98300dc428f505a367e2c63b8c678e6ea6899820[m
+Author: Tom Kowalski <kowalski.tom0@gmail.com>
+Date:   Sat Feb 20 04:11:16 2016 -0500
+
+    add enviornmental varibale for local use of external mysql database
+
+[33mcommit 200f0e02833a73c3896d5530e13ae0072bd07a03[m
+Merge: a91bdd1 72f5caa
+Author: scalls <scalls@rpi.edu>
+Date:   Sat Feb 20 04:06:58 2016 -0500
+
+    Merge branch 'master' of https://github.com/scalls/HackNYU
+
+[33mcommit a91bdd139db6a7b39f76e03b702fb33868daf546[m
+Author: scalls <scalls@rpi.edu>
+Date:   Sat Feb 20 04:06:32 2016 -0500
+
+    Changed names of options in Navigation Drawer
+
+[33mcommit 72f5caad31455c2fd614cbbf8bb0f4dc5fe53961[m
+Author: Tom Kowalski <kowalski.tom0@gmail.com>
+Date:   Sat Feb 20 03:48:37 2016 -0500
+
+    add mysql and password hash
+
+[33mcommit e411f295e122b85fede759e7ab8b43cd872c5e42[m
+Author: Tom Kowalski <kowalski.tom0@gmail.com>
+Date:   Sat Feb 20 03:39:00 2016 -0500
+
+    fixed proc file
