@@ -2239,9 +2239,6 @@ containing a value of this type.
         public static final int design_navigation_view=0x7f0c0073;
         public static final int disableHome=0x7f0c000e;
         public static final int edit_query=0x7f0c005c;
-        public static final int email=0x7f0c006c;
-        public static final int email_login_form=0x7f0c006b;
-        public static final int email_sign_in_button=0x7f0c006f;
         public static final int end=0x7f0c0020;
         public static final int end_padder=0x7f0c0083;
         public static final int enterAlways=0x7f0c0015;
@@ -2327,6 +2324,9 @@ containing a value of this type.
         public static final int topPanel=0x7f0c0047;
         public static final int up=0x7f0c0009;
         public static final int useLogo=0x7f0c0014;
+        public static final int username=0x7f0c006c;
+        public static final int username_login_form=0x7f0c006b;
+        public static final int username_sign_in_button=0x7f0c006f;
         public static final int view_offset_helper=0x7f0c000a;
         public static final int withText=0x7f0c0036;
         public static final int wrap_content=0x7f0c0039;
@@ -2420,11 +2420,10 @@ containing a value of this type.
         public static final int character_counter_pattern=0x7f060018;
         public static final int error_field_required=0x7f060019;
         public static final int error_incorrect_password=0x7f06001a;
-        public static final int error_invalid_email=0x7f06001b;
-        public static final int error_invalid_password=0x7f06001c;
-        public static final int permission_rationale=0x7f06001d;
-        public static final int prompt_email=0x7f06001e;
-        public static final int prompt_password=0x7f06001f;
+        public static final int error_invalid_password=0x7f06001b;
+        public static final int permission_rationale=0x7f06001c;
+        public static final int prompt_password=0x7f06001d;
+        public static final int prompt_username=0x7f06001e;
         public static final int status_bar_notification_info_overflow=0x7f060013;
     }
     public static final class style {
