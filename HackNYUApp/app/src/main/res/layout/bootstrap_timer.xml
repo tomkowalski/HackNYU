@@ -1,51 +1,53 @@
-<?xml version="1.0" encoding="utf-8"?>
-
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity" >
 
     <TextView
-        android:id="@+id/chronometer"
-        android:layout_width="fill_parent"
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="00:00:00"
-        style="@style/TimerChronometer"
-        />
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:text="@string/time_pick"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <Button
-        android:id="@+id/start"
-        android:layout_width="fill_parent"
+        android:id="@+id/set_button"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/start"
-        style="@style/BootstrapButton"
-        />
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="180dp"
+        android:onClick="setTime"
+        android:text="@string/time_save" />
 
-    <Button
-        android:id="@+id/stop"
-        android:layout_width="fill_parent"
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/stop"
-        android:visibility="gone"
-        style="@style/BootstrapButton"
-        />
+        android:layout_alignLeft="@+id/timePicker1"
+        android:layout_alignTop="@+id/set_button"
+        android:layout_marginTop="67dp"
+        android:text="@string/time_current"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
 
-    <Button
-        android:id="@+id/pause"
-        android:layout_width="fill_parent"
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/pause"
-        android:visibility="gone"
-        style="@style/BootstrapButton"
-        />
+        android:layout_below="@+id/textView3"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="50dp"
+        android:text="@string/time_selected"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
 
-    <Button
-        android:id="@+id/resume"
-        android:layout_width="fill_parent"
+    <TimePicker
+        android:id="@+id/timePicker1"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/resume"
-        android:visibility="gone"
-        style="@style/BootstrapButton"
-        />
+        android:layout_below="@+id/textView2"
+        android:layout_alignParentStart="true" />
 
-</LinearLayout>
+</RelativeLayout>
