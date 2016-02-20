@@ -20,7 +20,6 @@ import android.view.Window;
 
 import com.crashlytics.android.Crashlytics;
 import com.hacknyu.brill.darrengeng.BootstrapApplication;
-import com.hacknyu.brill.darrengeng.BootstrapComponent;
 import com.hacknyu.brill.darrengeng.BootstrapServiceProvider;
 import com.hacknyu.brill.darrengeng.R;
 import com.hacknyu.brill.darrengeng.core.BootstrapService;

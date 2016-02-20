@@ -1,4 +1,4 @@
-package com.hacknyu.brill.darrengeng;
+package com.com.donnfelker.android.bootstrap;
 
 import com.hacknyu.brill.darrengeng.authenticator.BootstrapAuthenticatorActivity;
 import com.hacknyu.brill.darrengeng.core.TimerService;
