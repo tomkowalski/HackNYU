@@ -140,6 +140,7 @@ function displayTable(city){
             var row = '<tr>';
             row += '<td>' + machines[i].serial_number + '</td>';
             var avg = machines[i].total_lamp_time/machines[i].total_reset;
+            avg = Math.round(avg * 100)/100;
             row += '<td>' + avg + '</td>';
             row += '<td>' + machines[i].total_reset + '</td>';
             row += '</tr>'
