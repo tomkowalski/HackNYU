@@ -4,8 +4,8 @@ window.onload = function(){
 
     function drawRegionsMap() {
         $.ajax({
-            type: "GET", //type of request get is going to select data (basically all you will do).
-            url: "/api/data/country", //website.com/.... (everything should be /api/<insert api endpoint>)
+            type: "GET", //type of request: get is going to select data (basically all you will do).
+            url: "/api/data/country/Italy", //website.com/.... (everything should be /api/<insert api endpoint>)
             dataType: 'json', //Parses data to json.
             /*headers: { //FOR LOGIN TO EDIT STUFF
             "Authorization": "Basic " + btoa(USERNAME + ":" + PASSWORD)
@@ -13,14 +13,15 @@ window.onload = function(){
             //data: '{ "comment" }',
         }).done(function(data, status) {
                 //alert(data);
-                console.log(status);
                 if(status == "success"){
                     if(!data.Error) {//not an error 
                         var dataArr = data.DataRecords;
+                        console.log(dataArr[0]);
                     }
                     else {
                         console.log(data.Message);
                     }
+                    console.log("\nRaw data:");
                     console.log(data);
                 }
             var countries =[['Country', 'Percent of Total Machines In Use', 'Country Code']];

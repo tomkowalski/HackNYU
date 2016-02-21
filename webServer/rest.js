@@ -109,22 +109,23 @@ REST_ROUTER.prototype.handleRoutes= function(router,connection,hash) {
     });
     router.get("/users/:user_name",function(req,res){
         verify(req, res, connection, hash, function(id) { 
-            var query = "SELECT ??,?? FROM ?? WHERE ??=??";
-            var table = ["User","user_name","id", req.params.user_name];
+            var query = "SELECT id, user_name FROM User WHERE user_name=?";
+            console.log(req.params.user_name);
+            var table = [req.params.user_name];
             query = mysql.format(query,table);
             connection.query(query,function(err,rows){
                 if(err) {
-                    res.json({"Error" : true, "Message" : "Error executing MySQL query"});
+                    res.json({"Error" : true, "Message" : "Error executing MySQL query", "Error" : err});
                 } else {
                     res.json({"Error" : false, "Message" : "Success", "Users" : rows});
                 }
             });
-        });
+        }); 
     });
     router.delete("/users/:user_name",function(req,res){
         verify(req, res, connection, hash, function(id) { 
             var query = "Select ?? FROM ?? WHERE ??=?";
-            var table = ["id", "User","user_name",user_name];
+            var table = ["id", "User", "user_name", req.params.user_name];
             query = mysql.format(query,table);
             connection.query(query,function(err,rows){
                 if(err) {
@@ -150,7 +151,6 @@ REST_ROUTER.prototype.handleRoutes= function(router,connection,hash) {
         });
     });
     router.get("/data/country",function(req,res){
-        //verify(req, res, connection, hash, function(id) { 
         var query = "Select country, country_code, Count(distinct serial_number) AS number_units From ?? GROUP BY country";
         var table = ["DataRecord"];
         query = mysql.format(query,table);
@@ -161,11 +161,22 @@ REST_ROUTER.prototype.handleRoutes= function(router,connection,hash) {
                 res.json({"Error" : false, "Message" : "Success", "DataRecords" : rows});
             }
         });
-    //});
+    });
+    router.get("/data/country/:country_query",function(req,res){
+        var query = 'Select city, sum(lamp_time) AS total_lamp_time, sum(timer_reset) AS total_reset, sum(meter_on)' +
+        ' AS total_meter_on, sum(meter_time) AS total_meter_time, count(distinct serial_number) AS number_units From DataRecord WHERE country=? GROUP BY city';
+        var table = [req.params.country_query];
+        query = mysql.format(query,table);
+        connection.query(query,function(err,rows){
+            if(err) {
+                res.json({"Error" : true, "Message" : "Error executing MySQL query"});
+            } else {
+                res.json({"Error" : false, "Message" : "Success", "DataRecords" : rows});
+            }
+        });
     });
     router.get("/data",function(req,res){
-        //verify(req, res, connection, hash, function(id) { 
-        var query = "SELECT * FROM ??";//TODO MAKE BETTER
+        var query = "SELECT * FROM ??";
         var table = ["DataRecord"];
         query = mysql.format(query,table);
         connection.query(query,function(err,rows){
@@ -175,7 +186,6 @@ REST_ROUTER.prototype.handleRoutes= function(router,connection,hash) {
                 res.json({"Error" : false, "Message" : "Success", "DataRecords" : rows});
             }
         });
-    //});
     });
     router.post("/data",function(req,res){
         verify(req, res, connection, hash, function(id) {
