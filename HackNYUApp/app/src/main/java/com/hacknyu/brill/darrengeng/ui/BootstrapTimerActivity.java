@@ -8,12 +8,19 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.NumberPicker;
 import android.graphics.Color;
+import android.widget.Button;
 
 public class BootstrapTimerActivity extends Activity {
     private String format = "";
     private NumberPicker seconds;
     private NumberPicker minutes;
     private NumberPicker hours;
+    private Button submit;
+    private Button reset;
+    private int secs = 0;
+    private int mins = 0;
+    private int hrs = 0;
+    private int totalTime = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +32,8 @@ public class BootstrapTimerActivity extends Activity {
         seconds = (NumberPicker) findViewById(R.id.ss);
         minutes = (NumberPicker) findViewById(R.id.mm);
         hours = (NumberPicker) findViewById(R.id.hh);
+        //submit = (Button)findViewByID(R.id.submitButton);
+        //reset = (Button)findViewByID(R.id.resetButton);
 
         //Set TextView text color
         tv.setTextColor(Color.parseColor("#ffd32b3b"));
@@ -34,7 +43,9 @@ public class BootstrapTimerActivity extends Activity {
         //Specify the maximum value/number of NumberPicker
         seconds.setMaxValue(60);
         minutes.setMinValue(0);
-        hours.setMaxValue(100);
+        minutes.setMaxValue(60);
+        hours.setMinValue(0);
+        hours.setMaxValue(999);
 
         //Gets whether the selector wheel wraps when reaching the min/max value.
         seconds.setWrapSelectorWheel(true);
@@ -45,18 +56,30 @@ public class BootstrapTimerActivity extends Activity {
         seconds.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
             @Override
             public void onValueChange(NumberPicker picker, int oldVal, int newVal){
-                //Display the newly selected number from picker
-                tv.setText("Selected Number : " + newVal);
+                secs = picker.getValue();
+                totalTime = 60*60*hrs + 60*mins + secs;
+                tv.setText("Seconds(for testing): " + Integer.toString(totalTime));
+            }
+        });
+        minutes.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
+            @Override
+            public void onValueChange(NumberPicker picker, int oldVal, int newVal){
+                mins = picker.getValue();
+                totalTime = 60*60*hrs + 60*mins + secs;
+                tv.setText("Seconds(for testing): " + Integer.toString(totalTime));
+            }
+        });
+        hours.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
+            @Override
+            public void onValueChange(NumberPicker picker, int oldVal, int newVal){
+                hrs = picker.getValue();
+                totalTime = 60*60*hrs + 60*mins + secs;
+                tv.setText("Seconds(for testing): " + totalTime);
             }
         });
 
     }
 
-    public void setTime(View view) {
-        //int hour = timePicker1.getCurrentHour();
-        //int min = timePicker1.getCurrentMinute();
-        //showTime(hour, min);
-    }
 
     /*public void showTime(int hour, int min) {
         if (hour == 0) {
