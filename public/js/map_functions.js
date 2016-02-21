@@ -48,6 +48,7 @@ window.onload = function(){
                 drawMarkersMap(indiv_options, countries[item.row].country);
             }
             google.visualization.events.addListener(chart, 'select', mySelectHandler);
+            displayLineWorld();
             chart.draw(dataVis, options);
         });
     }
@@ -90,6 +91,7 @@ window.onload = function(){
             }
 
             google.visualization.events.addListener(chart, 'select', myIndivSelectHandler);
+            displayLineCountry(country);
             chart.draw(city_data, indiv_options);
         });
     }
@@ -113,12 +115,9 @@ function displayTable(city){
                 else {
                     console.log(data.Message);
                 }
-                console.log("\nRaw data:");
-                console.log(data);
             }
 
-        var table = '<table class ="table table-bordered">';
-        table += '<caption style="font-size:200%; color:black;""><b>Machines in ' + city + '</b></caption>';
+        var table = '<h4>Machines in ' + city + '</h4><table class ="table table-bordered">';
         table += '<tr>';
 
         var header = ['Serial Number', 'Average Lamp Time', 'Number of Resets'];
@@ -140,5 +139,269 @@ function displayTable(city){
         table += '</table>'
 
         document.getElementById("tables").innerHTML = table;
+    });
+}
+
+function loadCountryLines(callback, country){
+
+    var tabs = '<ul class="nav nav-tabs" role="tablist">' +
+    '<li role="presentation" class="active"><a href="#country_month" aria-controls="country_month" role="tab" data-toggle="tab">This Year</a></li>' +
+    '<li role="presentation"><a href="#country_year" aria-controls="country_year" role="tab" data-toggle="tab">All-time</a></li>' +
+  '</ul>';
+
+  tabs += '<div class="tab-content">' +
+    '<div role="tabpanel" class="tab-pane active" id="country_month"></div>' +
+    '<div role="tabpanel" class="tab-pane" id="country_year"></div>'+
+  '</div>';
+
+  document.getElementById("tables").innerHTML = tabs;
+  callback();
+}
+
+function displayLineCountry(country){
+    loadCountryLines(function() {
+        $.ajax({
+                type: "GET", //type of request: get is going to select data (basically all you will do).
+                url: "/api/data/year/country/" + country, //website.com/.... (everything should be /api/<insert api endpoint>)
+                dataType: 'json', //Parses data to json.
+                /*headers: { //FOR LOGIN TO EDIT STUFF
+                "Authorization": "Basic " + btoa(USERNAME + ":" + PASSWORD)
+                },*/
+                //data: '{ "comment" }',
+            }).done(function(data, status) {
+                    //alert(data);
+                    if(status == "success"){
+                        if(!data.Error) {//not an error 
+                            var years = data.DataRecords;
+                        }
+                        else {
+                            console.log(data.Message);
+                        }
+                    }
+            document.getElementById("country_year").innerHTML = '<h4>Total Number of Machines Used in ' + country + ' per Year</h4><canvas id="countryLine"></canvas>';
+            var ctx = document.getElementById("countryLine").getContext("2d");
+
+            var x_axis = [];
+            var y_axis = [];
+            
+            for(var i = 0; i < years.length; ++i)
+                x_axis.push(years[i].year);
+            for(var i = 0; i < years.length; ++i)
+                y_axis.push(years[i].number_units);
+
+            var data = {
+                labels: x_axis,
+                datasets: [
+                {
+                    label: "My First dataset",
+                    fillColor: "rgba(216,191,216,0.5)",
+                    strokeColor: "rgba(220,220,220,1)",
+                    pointColor: "rgba(70,70,70,1)",
+                    pointStrokeColor: "#fff",
+                    pointHighlightFill: "#fff",
+                    pointHighlightStroke: "rgba(220,220,220,1)",
+                    data: y_axis
+                }]
+            };
+
+            var options = {bezierCurve : false,
+                            scaleBeginAtZero: true};
+
+            var myLineChart = new Chart(ctx).Line(data, options);
+        });
+
+        $.ajax({
+                type: "GET", //type of request: get is going to select data (basically all you will do).
+                url: "/api/data/month/country/" + country, //website.com/.... (everything should be /api/<insert api endpoint>)
+                dataType: 'json', //Parses data to json.
+                /*headers: { //FOR LOGIN TO EDIT STUFF
+                "Authorization": "Basic " + btoa(USERNAME + ":" + PASSWORD)
+                },*/
+                //data: '{ "comment" }',
+            }).done(function(data, status) {
+                    //alert(data);
+                    if(status == "success"){
+                        if(!data.Error) {//not an error 
+                            var months = data.DataRecords;
+                        }
+                        else {
+                            console.log(data.Message);
+                        }
+                    }
+
+            var date = new Date();
+            var cur_month = date.getMonth();
+            var cur_year = date.getYear()%100;
+            var month_names = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+
+            document.getElementById("country_month").innerHTML = '<h4>Total Number of Machines Used in ' + country + ' This Past Year</h4><canvas id="countryLine"></canvas>';
+            var ctx = document.getElementById("countryLine").getContext("2d");
+
+            var x_axis = [];
+            var y_axis = [];
+
+            for(var i = 0; i < months.length; ++i)
+            {  
+                var month = months[i].month;
+                if(month <= cur_month)
+                    x_axis.push(month_names[month-1] + " '" + cur_year);
+                else
+                    x_axis.push(month_names[month-1] + " '" + (cur_year-1));
+            }
+            for(var i = 0; i < months.length; ++i)
+                y_axis.push(months[i].number_units);
+
+            var data = {
+                labels: x_axis,
+                datasets: [
+                {
+                    label: "My First dataset",
+                    fillColor: "rgba(216,191,216,0.5)",
+                    strokeColor: "rgba(220,220,220,1)",
+                    pointColor: "rgba(70,70,70,1)",
+                    pointStrokeColor: "#fff",
+                    pointHighlightFill: "#fff",
+                    pointHighlightStroke: "rgba(220,220,220,1)",
+                    data: y_axis
+                }]
+            };
+
+            var options = {bezierCurve : false,
+                            scaleBeginAtZero: true};
+
+            var myLineChart = new Chart(ctx).Line(data, options);
+        });
+    });
+}
+
+function loadWorldLines(callback){
+
+    var tabs = '<ul class="nav nav-tabs" role="tablist">' +
+    '<li role="presentation" class="active"><a href="#world_month" aria-controls="world_month" role="tab" data-toggle="tab">This Year</a></li>' +
+    '<li role="presentation"><a href="#world_year" aria-controls="world_year" role="tab" data-toggle="tab">All-time</a></li>' +
+  '</ul>';
+
+  tabs += '<div class="tab-content">' +
+    '<div role="tabpanel" class="tab-pane active" id="world_month"></div>' +
+    '<div role="tabpanel" class="tab-pane" id="world_year"></div>'+
+  '</div>';
+
+  document.getElementById("tables").innerHTML = tabs;
+  callback();
+}
+
+function displayLineWorld(){
+    loadWorldLines(function() {
+        $.ajax({
+                type: "GET", //type of request: get is going to select data (basically all you will do).
+                url: "/api/data/year", //website.com/.... (everything should be /api/<insert api endpoint>)
+                dataType: 'json', //Parses data to json.
+                /*headers: { //FOR LOGIN TO EDIT STUFF
+                "Authorization": "Basic " + btoa(USERNAME + ":" + PASSWORD)
+                },*/
+                //data: '{ "comment" }',
+            }).done(function(data, status) {
+                    //alert(data);
+                    if(status == "success"){
+                        if(!data.Error) {//not an error 
+                            var years = data.DataRecords;
+                        }
+                        else {
+                            console.log(data.Message);
+                        }
+                    }
+            document.getElementById("world_year").innerHTML = '<h4>Total Number of Machines Used Globally per Year</h4><canvas id="globalLine"></canvas>';
+            var ctx = document.getElementById("globalLine").getContext("2d");
+
+            var x_axis = [];
+            var y_axis = [];
+
+            for(var i = 0; i < years.length; ++i)
+                x_axis.push(years[i].year);
+            for(var i = 0; i < years.length; ++i)
+                y_axis.push(years[i].number_units);
+
+            var data = {
+                labels: x_axis,
+                datasets: [
+                {
+                    label: "My First dataset",
+                    fillColor: "rgba(216,191,216,0.5)",
+                    strokeColor: "rgba(220,220,220,1)",
+                    pointColor: "rgba(70,70,70,1)",
+                    pointStrokeColor: "#fff",
+                    pointHighlightFill: "#fff",
+                    pointHighlightStroke: "rgba(220,220,220,1)",
+                    data: y_axis
+                }]
+            };
+
+            var options = {bezierCurve : false,
+                            scaleBeginAtZero: true};
+
+            var myLineChart = new Chart(ctx).Line(data, options);
+        });
+
+        $.ajax({
+                type: "GET", //type of request: get is going to select data (basically all you will do).
+                url: "/api/data/month", //website.com/.... (everything should be /api/<insert api endpoint>)
+                dataType: 'json', //Parses data to json.
+                /*headers: { //FOR LOGIN TO EDIT STUFF
+                "Authorization": "Basic " + btoa(USERNAME + ":" + PASSWORD)
+                },*/
+                //data: '{ "comment" }',
+            }).done(function(data, status) {
+                    //alert(data);
+                    if(status == "success"){
+                        if(!data.Error) {//not an error 
+                            var months = data.DataRecords;
+                        }
+                        else {
+                            console.log(data.Message);
+                        }
+                    }
+
+            var date = new Date();
+            var cur_month = date.getMonth();
+            var cur_year = date.getYear()%100;
+            var month_names = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+
+            document.getElementById("world_month").innerHTML = '<h4>Total Number of Machines Used Globally This Past Year</h4><canvas id="globalLine"></canvas>';
+            var ctx = document.getElementById("globalLine").getContext("2d");
+
+            var x_axis = [];
+            var y_axis = [];
+
+            for(var i = 0; i < months.length; ++i)
+            {  
+                var month = months[i].month;
+                if(month <= cur_month)
+                    x_axis.push(month_names[month-1] + " '" + cur_year);
+                else
+                    x_axis.push(month_names[month-1] + " '" + (cur_year-1));
+            }
+            for(var i = 0; i < months.length; ++i)
+                y_axis.push(months[i].number_units);
+
+            var data = {
+                labels: x_axis,
+                datasets: [
+                {
+                    label: "My First dataset",
+                    fillColor: "rgba(216,191,216,0.5)",
+                    strokeColor: "rgba(220,220,220,1)",
+                    pointColor: "rgba(70,70,70,1)",
+                    pointStrokeColor: "#fff",
+                    pointHighlightFill: "#fff",
+                    pointHighlightStroke: "rgba(220,220,220,1)",
+                    data: y_axis
+                }]
+            };
+
+            var options = {bezierCurve : false,
+                            scaleBeginAtZero: true};
+
+            var myLineChart = new Chart(ctx).Line(data, options);
+        });
     });
 }
