@@ -24,16 +24,21 @@ app.use('/api', router);
 app.set('views', './views');
 app.set('view engine', 'jade');
 app.set('port', (process.env.PORT || 5000))
+app.use(express.static(__dirname + '/public'));
 var rest_router = new rest(router,connection,hash);
 
 app.get('/', function(req, res) {
 	connection.query('SELECT * FROM User', function (error, results, fields) {
   	//console.log();
   	res.render('index', {
-    	title: 'Home ' + results[0].UserName
-  });
+    	title: 'Home ' + results[0].UserName,
+    	user: {
+    		fullName: "tgay"
+    	}
+  	});
+	});
 });
-});
+
 
 app.listen(app.get('port'), function() {
   console.log("Node app is running at localhost:" + app.get('port'))
