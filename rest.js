@@ -175,6 +175,20 @@ REST_ROUTER.prototype.handleRoutes= function(router,connection,hash) {
             }
         });
     });
+    router.get("/data/city",function(req,res){
+        var query = 'Select city, serial_number, sum(lamp_time) AS total_lamp_time, sum(timer_reset) AS total_reset, sum(meter_on) ' +
+        'AS total_meter_on, sum(meter_time) AS total_meter_time, count(distinct serial_number) AS number_units From DataRecord WHERE ' +
+        'country=? GROUP BY serial_number';
+        var table = ["DataRecord"];
+        query = mysql.format(query,table);
+        connection.query(query,function(err,rows){
+            if(err) {
+                res.json({"Error" : true, "Message" : "Error executing MySQL query"});
+            } else {
+                res.json({"Error" : false, "Message" : "Success", "DataRecords" : rows});
+            }
+        });
+    });
     router.get("/data",function(req,res){
         var query = "SELECT * FROM ??";
         var table = ["DataRecord"];
