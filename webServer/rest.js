@@ -120,12 +120,12 @@ REST_ROUTER.prototype.handleRoutes= function(router,connection,hash) {
                     res.json({"Error" : false, "Message" : "Success", "Users" : rows});
                 }
             });
-        });
+        }); 
     });
     router.delete("/users/:user_name",function(req,res){
         verify(req, res, connection, hash, function(id) { 
             var query = "Select ?? FROM ?? WHERE ??=?";
-            var table = ["id", "User", "user_name", user_name];
+            var table = ["id", "User", "user_name", req.params.user_name];
             query = mysql.format(query,table);
             connection.query(query,function(err,rows){
                 if(err) {
