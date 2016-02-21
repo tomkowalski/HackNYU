@@ -1,48 +1,64 @@
 package com.hacknyu.brill.darrengeng.ui;
-import android.app.DialogFragment;
-import android.app.TimePickerDialog;
-import android.app.Dialog;
-import java.util.Calendar;
-import android.text.format.DateFormat;
-import android.widget.TimePicker;
-import android.app.ActivityManager;
-import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
-import com.hacknyu.brill.darrengeng.BootstrapApplication;
+
 import com.hacknyu.brill.darrengeng.R;
 import android.app.Activity;
 import android.view.Menu;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.NumberPicker;
+import android.graphics.Color;
 
 public class BootstrapTimerActivity extends Activity {
-    private TimePicker timePicker1;
-    private TextView time;
-    private Calendar calendar;
     private String format = "";
+    private NumberPicker seconds;
+    private NumberPicker minutes;
+    private NumberPicker hours;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.bootstrap_timer);
 
-        timePicker1 = (TimePicker) findViewById(R.id.timePicker1);
-        time = (TextView) findViewById(R.id.textView1);
-        calendar = Calendar.getInstance();
+        //Get the widgets reference from XML layout
+        final TextView tv = (TextView) findViewById(R.id.tv);
+        seconds = (NumberPicker) findViewById(R.id.ss);
+        minutes = (NumberPicker) findViewById(R.id.mm);
+        hours = (NumberPicker) findViewById(R.id.hh);
 
-        int hour = calendar.get(Calendar.HOUR_OF_DAY);
-        int min = calendar.get(Calendar.MINUTE);
-        showTime(hour, min);
+        //Set TextView text color
+        tv.setTextColor(Color.parseColor("#ffd32b3b"));
+        //Populate NumberPicker values from minimum and maximum value range
+        //Set the minimum value of NumberPicker
+        seconds.setMinValue(0);
+        //Specify the maximum value/number of NumberPicker
+        seconds.setMaxValue(60);
+        minutes.setMinValue(0);
+        hours.setMaxValue(100);
+
+        //Gets whether the selector wheel wraps when reaching the min/max value.
+        seconds.setWrapSelectorWheel(true);
+        minutes.setWrapSelectorWheel(true);
+        hours.setWrapSelectorWheel(true);
+
+        //Set a value change listener for NumberPicker
+        seconds.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
+            @Override
+            public void onValueChange(NumberPicker picker, int oldVal, int newVal){
+                //Display the newly selected number from picker
+                tv.setText("Selected Number : " + newVal);
+            }
+        });
+
     }
 
     public void setTime(View view) {
-        int hour = timePicker1.getCurrentHour();
-        int min = timePicker1.getCurrentMinute();
-        showTime(hour, min);
+        //int hour = timePicker1.getCurrentHour();
+        //int min = timePicker1.getCurrentMinute();
+        //showTime(hour, min);
     }
 
-    public void showTime(int hour, int min) {
+    /*public void showTime(int hour, int min) {
         if (hour == 0) {
             hour += 12;
             format = "AM";
@@ -57,7 +73,7 @@ public class BootstrapTimerActivity extends Activity {
         }
         time.setText(new StringBuilder().append(hour).append(" : ").append(min)
                 .append(" ").append(format));
-    }
+    }*/
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
