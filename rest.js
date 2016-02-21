@@ -175,11 +175,11 @@ REST_ROUTER.prototype.handleRoutes= function(router,connection,hash) {
             }
         });
     });
-    router.get("/data/city",function(req,res){
+    router.get("/data/city/:city_query",function(req,res){
         var query = 'Select city, serial_number, sum(lamp_time) AS total_lamp_time, sum(timer_reset) AS total_reset, sum(meter_on) ' +
         'AS total_meter_on, sum(meter_time) AS total_meter_time, count(distinct serial_number) AS number_units From DataRecord WHERE ' +
-        'country=? GROUP BY serial_number';
-        var table = ["DataRecord"];
+        'city=? GROUP BY serial_number';
+        var table = [req.params.city_query];
         query = mysql.format(query,table);
         connection.query(query,function(err,rows){
             if(err) {
