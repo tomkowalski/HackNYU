@@ -41,6 +41,9 @@ window.onload = function(){
                 indiv_options['legend'] = 'none';
                 indiv_options['colorAxis'] = {colors: ['FFD700', 'orange', 'red', '8B0000']};
                 $('<button type="button">Go Back To World Map</button>').insertAfter('h1').click(function(){
+                    var existing_button = document.getElementById('back_country');
+                    if(existing_button)
+                        existing_button.remove();
                     drawRegionsMap();
                     document.getElementById("tables").innerHTML = "";
                     $(this).remove();
@@ -73,10 +76,10 @@ window.onload = function(){
                     }
                 }
 
-            var temp = [['City', 'Total Number of Resets']];
+            var temp = [['City', 'Total Number of Resets', 'Total Number of Machines']];
 
             for (var i = 0; i < cities.length; ++i)
-                temp.push([cities[i].city, cities[i].total_reset]);
+                temp.push([cities[i].city, cities[i].total_reset, cities[i].number_units]);
 
             var city_data = google.visualization.arrayToDataTable(temp);
 
@@ -85,9 +88,17 @@ window.onload = function(){
             var chart = new google.visualization.GeoChart(document.getElementById("map"));
 
             function myIndivSelectHandler(){
+                var existing_button = document.getElementById('back_country');
+                if(existing_button)
+                    existing_button.remove();
                 var selection = chart.getSelection();
                 var item = selection[0];
                 displayTable(cities[item.row].city);
+                $('<button type="button" id="back_country">Show ' + country + ' Line Graphs</button>').insertAfter('#tables').click(function(){
+                    document.getElementById("tables").innnerHTML = "";
+                    displayLineCountry(country);
+                    $(this).remove();
+                });
             }
 
             google.visualization.events.addListener(chart, 'select', myIndivSelectHandler);
@@ -178,18 +189,24 @@ function displayLineCountry(country){
                             console.log(data.Message);
                         }
                     }
-            document.getElementById("country_year").innerHTML = '<h4>Total Number of Machines Used in ' + country + ' per Year</h4><canvas id="countryLine"></canvas>';
+            document.getElementById("country_year").innerHTML = '<div><h4>Total Number of Machines Used in ' + country + ' per Year</h4><canvas id="countryLine"></canvas></div>';
+            document.getElementById("country_year").innerHTML += '<div><h4>Total Number of Timer Resets in ' + country + ' per Year</h4><canvas id="countryLineR"></canvas></div>';
+
             var ctx = document.getElementById("countryLine").getContext("2d");
+            var ctx_r = document.getElementById("countryLineR").getContext("2d");
 
             var x_axis = [];
-            var y_axis = [];
-            
+            var y_axis_number = [];
+            var y_axis_resets = [];
+
             for(var i = 0; i < years.length; ++i)
                 x_axis.push(years[i].year);
-            for(var i = 0; i < years.length; ++i)
-                y_axis.push(years[i].number_units);
+            for(var i = 0; i < years.length; ++i) {
+                y_axis_number.push(years[i].number_units);
+                y_axis_resets.push(years[i].AStotal_reset);
+            }
 
-            var data = {
+            var data_number = {
                 labels: x_axis,
                 datasets: [
                 {
@@ -200,14 +217,30 @@ function displayLineCountry(country){
                     pointStrokeColor: "#fff",
                     pointHighlightFill: "#fff",
                     pointHighlightStroke: "rgba(220,220,220,1)",
-                    data: y_axis
+                    data: y_axis_number
+                }]
+            };
+
+            var data_resets = {
+                labels: x_axis,
+                datasets: [
+                {
+                    label: "My First dataset",
+                    fillColor: "rgba(216,191,216,0.5)",
+                    strokeColor: "rgba(220,220,220,1)",
+                    pointColor: "rgba(70,70,70,1)",
+                    pointStrokeColor: "#fff",
+                    pointHighlightFill: "#fff",
+                    pointHighlightStroke: "rgba(220,220,220,1)",
+                    data: y_axis_resets
                 }]
             };
 
             var options = {bezierCurve : false,
                             scaleBeginAtZero: true};
 
-            var myLineChart = new Chart(ctx).Line(data, options);
+            var myLineChartNumber = new Chart(ctx).Line(data_number, options);
+            var myLineChartResets = new Chart(ctx_r).Line(data_resets, options);
         });
 
         $.ajax({
@@ -234,11 +267,15 @@ function displayLineCountry(country){
             var cur_year = date.getYear()%100;
             var month_names = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
-            document.getElementById("country_month").innerHTML = '<h4>Total Number of Machines Used in ' + country + ' This Past Year</h4><canvas id="countryLine"></canvas>';
+            document.getElementById("country_month").innerHTML = '<div><h4>Total Number of Machines Used in ' + country + ' This Past Year</h4><canvas id="countryLine"></canvas></div>';
+            document.getElementById("country_month").innerHTML += '<div><h4>Total Number of Timer Resets in ' + country + ' This Past Year</h4><canvas id="countryLineR"></canvas></div>';
+
             var ctx = document.getElementById("countryLine").getContext("2d");
+            var ctx_r = document.getElementById("countryLineR").getContext("2d");
 
             var x_axis = [];
-            var y_axis = [];
+            var y_axis_number = [];
+            var y_axis_resets = [];
 
             for(var i = 0; i < months.length; ++i)
             {  
@@ -248,10 +285,12 @@ function displayLineCountry(country){
                 else
                     x_axis.push(month_names[month-1] + " '" + (cur_year-1));
             }
-            for(var i = 0; i < months.length; ++i)
-                y_axis.push(months[i].number_units);
+            for(var i = 0; i < months.length; ++i) {
+                y_axis_number.push(months[i].number_units);
+                y_axis_resets.push(months[i].total_reset);
+            }
 
-            var data = {
+            var data_number = {
                 labels: x_axis,
                 datasets: [
                 {
@@ -262,14 +301,30 @@ function displayLineCountry(country){
                     pointStrokeColor: "#fff",
                     pointHighlightFill: "#fff",
                     pointHighlightStroke: "rgba(220,220,220,1)",
-                    data: y_axis
+                    data: y_axis_number
+                }]
+            };
+
+            var data_resets = {
+                labels: x_axis,
+                datasets: [
+                {
+                    label: "My First dataset",
+                    fillColor: "rgba(216,191,216,0.5)",
+                    strokeColor: "rgba(220,220,220,1)",
+                    pointColor: "rgba(70,70,70,1)",
+                    pointStrokeColor: "#fff",
+                    pointHighlightFill: "#fff",
+                    pointHighlightStroke: "rgba(220,220,220,1)",
+                    data: y_axis_resets
                 }]
             };
 
             var options = {bezierCurve : false,
                             scaleBeginAtZero: true};
 
-            var myLineChart = new Chart(ctx).Line(data, options);
+            var myLineChartNumber = new Chart(ctx).Line(data_number, options);
+            var myLineChartResets = new Chart(ctx_r).Line(data_resets, options);
         });
     });
 }
@@ -310,18 +365,24 @@ function displayLineWorld(){
                             console.log(data.Message);
                         }
                     }
-            document.getElementById("world_year").innerHTML = '<h4>Total Number of Machines Used Globally per Year</h4><canvas id="globalLine"></canvas>';
+            document.getElementById("world_year").innerHTML = '<div><h4>Total Number of Machines Used Globally per Year</h4><canvas id="globalLine"></canvas></div>';
+            document.getElementById("world_year").innerHTML += '<div><h4>Total Number of Timer Resets Globally per Year</h4><canvas id="globalLineR"></canvas></div>';
+
             var ctx = document.getElementById("globalLine").getContext("2d");
+            var ctx_r = document.getElementById("globalLineR").getContext("2d");
 
             var x_axis = [];
-            var y_axis = [];
+            var y_axis_number = [];
+            var y_axis_resets = [];
 
             for(var i = 0; i < years.length; ++i)
                 x_axis.push(years[i].year);
-            for(var i = 0; i < years.length; ++i)
-                y_axis.push(years[i].number_units);
+            for(var i = 0; i < years.length; ++i){
+                y_axis_number.push(years[i].number_units);
+                y_axis_resets.push(years[i].AStotal_reset);
+            }
 
-            var data = {
+            var data_number = {
                 labels: x_axis,
                 datasets: [
                 {
@@ -332,14 +393,30 @@ function displayLineWorld(){
                     pointStrokeColor: "#fff",
                     pointHighlightFill: "#fff",
                     pointHighlightStroke: "rgba(220,220,220,1)",
-                    data: y_axis
+                    data: y_axis_number
+                }]
+            };
+
+            var data_resets = {
+                labels: x_axis,
+                datasets: [
+                {
+                    label: "My First dataset",
+                    fillColor: "rgba(216,191,216,0.5)",
+                    strokeColor: "rgba(220,220,220,1)",
+                    pointColor: "rgba(70,70,70,1)",
+                    pointStrokeColor: "#fff",
+                    pointHighlightFill: "#fff",
+                    pointHighlightStroke: "rgba(220,220,220,1)",
+                    data: y_axis_resets
                 }]
             };
 
             var options = {bezierCurve : false,
                             scaleBeginAtZero: true};
 
-            var myLineChart = new Chart(ctx).Line(data, options);
+            var myLineChartNumber = new Chart(ctx).Line(data_number, options);
+            var myLineChartResets = new Chart(ctx_r).Line(data_resets, options);
         });
 
         $.ajax({
@@ -366,11 +443,15 @@ function displayLineWorld(){
             var cur_year = date.getYear()%100;
             var month_names = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
-            document.getElementById("world_month").innerHTML = '<h4>Total Number of Machines Used Globally This Past Year</h4><canvas id="globalLine"></canvas>';
+            document.getElementById("world_month").innerHTML = '<div><h4>Total Number of Machines Used Globally This Past Year</h4><canvas id="globalLine"></canvas></div>';
+            document.getElementById("world_month").innerHTML += '<div><h4>Total Number of Timer Resets Globally This Past Year</h4><canvas id="globalLineR"></canvas></div>';
+
             var ctx = document.getElementById("globalLine").getContext("2d");
+            var ctx_r = document.getElementById("globalLineR").getContext("2d");
 
             var x_axis = [];
-            var y_axis = [];
+            var y_axis_number = [];
+            var y_axis_resets = [];
 
             for(var i = 0; i < months.length; ++i)
             {  
@@ -380,10 +461,12 @@ function displayLineWorld(){
                 else
                     x_axis.push(month_names[month-1] + " '" + (cur_year-1));
             }
-            for(var i = 0; i < months.length; ++i)
-                y_axis.push(months[i].number_units);
+            for(var i = 0; i < months.length; ++i){
+                y_axis_number.push(months[i].number_units);
+                y_axis_resets.push(months[i].total_reset);
+            }
 
-            var data = {
+            var data_number = {
                 labels: x_axis,
                 datasets: [
                 {
@@ -394,14 +477,30 @@ function displayLineWorld(){
                     pointStrokeColor: "#fff",
                     pointHighlightFill: "#fff",
                     pointHighlightStroke: "rgba(220,220,220,1)",
-                    data: y_axis
+                    data: y_axis_number
+                }]
+            };
+
+            var data_resets = {
+                labels: x_axis,
+                datasets: [
+                {
+                    label: "My First dataset",
+                    fillColor: "rgba(216,191,216,0.5)",
+                    strokeColor: "rgba(220,220,220,1)",
+                    pointColor: "rgba(70,70,70,1)",
+                    pointStrokeColor: "#fff",
+                    pointHighlightFill: "#fff",
+                    pointHighlightStroke: "rgba(220,220,220,1)",
+                    data: y_axis_resets
                 }]
             };
 
             var options = {bezierCurve : false,
                             scaleBeginAtZero: true};
 
-            var myLineChart = new Chart(ctx).Line(data, options);
+            var myLineChartNumber = new Chart(ctx).Line(data_number, options);
+            var myLineChartResets = new Chart(ctx_r).Line(data_resets, options);
         });
     });
 }
