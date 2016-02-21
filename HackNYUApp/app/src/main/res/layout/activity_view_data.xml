@@ -12,9 +12,50 @@
 
     <com.jjoe64.graphview.helper.GraphViewXML
         android:layout_width="match_parent"
-        android:layout_height="100dip"
-        app:seriesData="0=5;2=5;3=0;4=2"
+        android:layout_height="320dip"
+        app:seriesData="1=5;6=5;8=-2;11=4"
         app:seriesType="bar"
-        app:seriesColor="#47ee00" />
+        app:seriesColor="#47ee00"
+        android:id="@+id/view"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true" />
+
+    <RadioGroup
+        android:layout_width="fill_parent"
+        android:layout_height="150dp"
+        android:weightSum="1"
+        android:id="@+id/radioGroup"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true">
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="35dp"
+            android:text="@string/week"
+            android:id="@+id/radioButtonWeek"
+            android:layout_gravity="center_horizontal"
+            android:checked="false"
+            android:textSize="25dp" />
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="35dp"
+            android:text="@string/month"
+            android:id="@+id/radioButtonMonth"
+            android:layout_gravity="center_horizontal"
+            android:checked="false"
+            android:textSize="25dp" />
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="35dp"
+            android:text="@string/year"
+            android:id="@+id/radioButtonYear"
+            android:layout_gravity="center_horizontal"
+            android:checked="false"
+            android:textSize="25dp"
+            android:layout_weight="0.13" />
+    </RadioGroup>
+
 
 </RelativeLayout>
