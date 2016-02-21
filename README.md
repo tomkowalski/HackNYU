@@ -1,4 +1,1 @@
-# HackNYU
-TJ sucks
-Ayy lmao
-
+# Backend for Brilliance
