@@ -1,53 +1,39 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/rl"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity" >
-
+    android:padding="16dp"
+    tools:context=".MainActivity"
+    android:background="#ffffff"
+    >
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:text="@string/time_pick"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+        android:textSize="25dp"
+        android:text="Select a number..."
+        />
 
-    <Button
-        android:id="@+id/set_button"
+    <NumberPicker
+        android:id="@+id/hh"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="180dp"
-        android:onClick="setTime"
-        android:text="@string/time_save" />
+        android:layout_alignTop="@+id/mm"
+        android:layout_toStartOf="@+id/mm" />
 
-    <TextView
-        android:id="@+id/textView3"
+    <NumberPicker
+        android:id="@+id/ss"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/timePicker1"
-        android:layout_alignTop="@+id/set_button"
-        android:layout_marginTop="67dp"
-        android:text="@string/time_current"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+        android:layout_below="@+id/tv"
+        android:layout_toEndOf="@+id/tv" />
 
-    <TextView
-        android:id="@+id/textView1"
+    <NumberPicker
+        android:id="@+id/mm"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/textView3"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="50dp"
-        android:text="@string/time_selected"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
-
-    <TimePicker
-        android:id="@+id/timePicker1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/textView2"
-        android:layout_alignParentStart="true" />
-
+        android:layout_alignTop="@+id/ss"
+        android:layout_toStartOf="@+id/ss" />
 </RelativeLayout>
