@@ -177,8 +177,7 @@ REST_ROUTER.prototype.handleRoutes= function(router,connection,hash) {
     });
     router.get("/data/city/:city_query",function(req,res){
         var query = 'Select city, serial_number, sum(lamp_time) AS total_lamp_time, sum(timer_reset) AS total_reset, sum(meter_on) ' +
-        'AS total_meter_on, sum(meter_time) AS total_meter_time, count(distinct serial_number) AS number_units From DataRecord WHERE ' +
-        'city=? GROUP BY serial_number';
+        'AS total_meter_on, sum(meter_time) AS total_meter_time From DataRecord WHERE city=? GROUP BY serial_number';
         var table = [req.params.city_query];
         query = mysql.format(query,table);
         connection.query(query,function(err,rows){
@@ -190,8 +189,32 @@ REST_ROUTER.prototype.handleRoutes= function(router,connection,hash) {
         });
     });
     router.get("/data",function(req,res){
-        var query = "SELECT * FROM ??";
+        var query = "SELECT * FROM ??"; //TODO Make more useful
         var table = ["DataRecord"];
+        query = mysql.format(query,table);
+        connection.query(query,function(err,rows){
+            if(err) {
+                res.json({"Error" : true, "Message" : "Error executing MySQL query"});
+            } else {
+                res.json({"Error" : false, "Message" : "Success", "DataRecords" : rows});
+            }
+        });
+    });
+    router.get("/data/user/",function(req,res){
+        var query = "select user_name, user_id, count(DataRecord.id) AS total_records FROM User JOIN DataRecord on User.id = DataRecord.user_id Group By user_id";
+        var table = [];
+        query = mysql.format(query,table);
+        connection.query(query,function(err,rows){
+            if(err) {
+                res.json({"Error" : true, "Message" : "Error executing MySQL query"});
+            } else {
+                res.json({"Error" : false, "Message" : "Success", "DataRecords" : rows});
+            }
+        });
+    });
+    router.get("/data/sn/",function(req,res){
+        var query = "select user_name, user_id, count(DataRecord.id) AS total_records FROM User JOIN DataRecord on User.id = DataRecord.user_id Group By user_id";
+        var table = [];
         query = mysql.format(query,table);
         connection.query(query,function(err,rows){
             if(err) {
