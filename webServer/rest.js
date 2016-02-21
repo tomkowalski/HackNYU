@@ -149,6 +149,20 @@ REST_ROUTER.prototype.handleRoutes= function(router,connection,hash) {
             });
         });
     });
+    router.get("/data/country",function(req,res){
+        //verify(req, res, connection, hash, function(id) { 
+        var query = "Select country, country_code, Count(distinct serial_number) AS number_units From ?? GROUP BY country";
+        var table = ["DataRecord"];
+        query = mysql.format(query,table);
+        connection.query(query,function(err,rows){
+            if(err) {
+                res.json({"Error" : true, "Message" : "Error executing MySQL query"});
+            } else {
+                res.json({"Error" : false, "Message" : "Success", "DataRecords" : rows});
+            }
+        });
+    //});
+    });
     router.get("/data",function(req,res){
         //verify(req, res, connection, hash, function(id) { 
         var query = "SELECT * FROM ??";//TODO MAKE BETTER
@@ -158,7 +172,7 @@ REST_ROUTER.prototype.handleRoutes= function(router,connection,hash) {
             if(err) {
                 res.json({"Error" : true, "Message" : "Error executing MySQL query"});
             } else {
-                res.json({"Error" : false, "Message" : "Success", "Data Records" : rows});
+                res.json({"Error" : false, "Message" : "Success", "DataRecords" : rows});
             }
         });
     //});
