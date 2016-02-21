@@ -197,6 +197,11 @@ public class MainActivity extends BootstrapActivity {
         startActivity(i);
     }
 
+    private void navigateToViewData() {
+        final Intent i = new Intent(this, ViewDataActivity.class);
+        startActivity(i);
+    }
+
     @Subscribe
     public void onNavigationItemSelected(NavItemSelectedEvent event) {
 
@@ -210,6 +215,10 @@ public class MainActivity extends BootstrapActivity {
             case 1:
                 // Timer
                 navigateToTimer();
+                break;
+            case 2:
+                // View Data
+                navigateToViewData();
                 break;
         }
     }
