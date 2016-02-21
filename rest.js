@@ -162,6 +162,83 @@ REST_ROUTER.prototype.handleRoutes= function(router,connection,hash) {
             }
         });
     });
+    router.get("/data/year",function(req,res){
+        var query = 'select Count(distinct serial_number) AS number_units, sum(lamp_time) AS total_lamp_time, sum(timer_reset) AS' +
+                    'total_reset, sum(meter_on) AS total_meter_on, sum(meter_time) AS total_meter_time, year(time_recorded) AS year from DataRecord group by YEAR(time_recorded)';
+        var table = [];
+        query = mysql.format(query,table);
+        connection.query(query,function(err,rows){
+            if(err) {
+                res.json({"Error" : true, "Message" : "Error executing MySQL query"});
+            } else {
+                res.json({"Error" : false, "Message" : "Success", "DataRecords" : rows});
+            }
+        });
+    });
+    router.get("/data/year/country/:country_query",function(req,res){
+        var query = 'select Count(distinct serial_number) AS number_units, sum(lamp_time) AS total_lamp_time, sum(timer_reset) AS' +
+                    'total_reset, sum(meter_on) AS total_meter_on, sum(meter_time) AS total_meter_time, year(time_recorded) AS year from DataRecord WHERE country=? group by YEAR(time_recorded)';
+        var table = [req.params.country_query];
+        query = mysql.format(query,table);
+        connection.query(query,function(err,rows){
+            if(err) {
+                res.json({"Error" : true, "Message" : "Error executing MySQL query"});
+            } else {
+                res.json({"Error" : false, "Message" : "Success", "DataRecords" : rows});
+            }
+        });
+    });
+    router.get("/data/month",function(req,res){
+        var query = 'select Count(distinct serial_number) AS number_units, sum(lamp_time) AS total_lamp_time, sum(timer_reset) AS total_reset, sum(meter_on)' + 
+        'AS total_meter_on, sum(meter_time) AS total_meter_time, month(time_recorded) AS month from DataRecord WHERE datediff(curDate(),time_recorded) <= 365  group by Month(time_recorded) order by Cast(datediff(date_add(time_recorded, INTERVAL 1 YEAR), curdate())/30 AS unsigned)';
+        var table = [];
+        query = mysql.format(query,table);
+        connection.query(query,function(err,rows){
+            if(err) {
+                res.json({"Error" : true, "Message" : "Error executing MySQL query"});
+            } else {
+                res.json({"Error" : false, "Message" : "Success", "DataRecords" : rows});
+            }
+        });
+    });
+    router.get("/data/month/country/:country_query",function(req,res){
+       var query = 'select Count(distinct serial_number) AS number_units, sum(lamp_time) AS total_lamp_time, sum(timer_reset) AS total_reset, sum(meter_on)' + 
+        'AS total_meter_on, sum(meter_time) AS total_meter_time, month(time_recorded) AS month from DataRecord WHERE datediff(curDate(),time_recorded) <= 365  group by Month(time_recorded) order by Cast(datediff(date_add(time_recorded, INTERVAL 1 YEAR), curdate())/30 AS unsigned)';
+        var table = [req.params.country_query];
+        query = mysql.format(query,table);
+        connection.query(query,function(err,rows){
+            if(err) {
+                res.json({"Error" : true, "Message" : "Error executing MySQL query"});
+            } else {
+                res.json({"Error" : false, "Message" : "Success", "DataRecords" : rows});
+            }
+        });
+    });
+    router.get("/data/year/country",function(req,res){
+        var query = 'select Count(distinct serial_number) AS number_units, sum(lamp_time) AS total_lamp_time, sum(timer_reset) AS' +
+                    'total_reset, sum(meter_on) AS total_meter_on, sum(meter_time) AS total_meter_time, year(time_recorded) AS year from DataRecord group by YEAR(time_recorded)';
+        var table = [];
+        query = mysql.format(query,table);
+        connection.query(query,function(err,rows){
+            if(err) {
+                res.json({"Error" : true, "Message" : "Error executing MySQL query"});
+            } else {
+                res.json({"Error" : false, "Message" : "Success", "DataRecords" : rows});
+            }
+        });
+    });
+    router.get("/data/month/country",function(req,res){
+        var query = "Select country, country_code, Count(distinct serial_number) AS number_units From ?? GROUP BY country";
+        var table = ["DataRecord"];
+        query = mysql.format(query,table);
+        connection.query(query,function(err,rows){
+            if(err) {
+                res.json({"Error" : true, "Message" : "Error executing MySQL query"});
+            } else {
+                res.json({"Error" : false, "Message" : "Success", "DataRecords" : rows});
+            }
+        });
+    });
     router.get("/data/country/:country_query",function(req,res){
         var query = 'Select city, sum(lamp_time) AS total_lamp_time, sum(timer_reset) AS total_reset, sum(meter_on)' +
         ' AS total_meter_on, sum(meter_time) AS total_meter_time, count(distinct serial_number) AS number_units From DataRecord WHERE country=? GROUP BY city';
@@ -177,7 +254,7 @@ REST_ROUTER.prototype.handleRoutes= function(router,connection,hash) {
     });
     router.get("/data/city/:city_query",function(req,res){
         var query = 'Select city, serial_number, sum(lamp_time) AS total_lamp_time, sum(timer_reset) AS total_reset, sum(meter_on) ' +
-        'AS total_meter_on, sum(meter_time) AS total_meter_time From DataRecord WHERE city=? GROUP BY serial_number';
+        'AS total_meter_on, sum(meter_time) AS total_meter_time, COUNT(id) AS total_records From DataRecord WHERE city=? GROUP BY serial_number';
         var table = [req.params.city_query];
         query = mysql.format(query,table);
         connection.query(query,function(err,rows){
@@ -212,7 +289,7 @@ REST_ROUTER.prototype.handleRoutes= function(router,connection,hash) {
             }
         });
     });
-    router.get("/data/sn/",function(req,res){
+    /*router.get("/data/sn/",function(req,res){
         var query = "select user_name, user_id, count(DataRecord.id) AS total_records FROM User JOIN DataRecord on User.id = DataRecord.user_id Group By user_id";
         var table = [];
         query = mysql.format(query,table);
@@ -223,7 +300,7 @@ REST_ROUTER.prototype.handleRoutes= function(router,connection,hash) {
                 res.json({"Error" : false, "Message" : "Success", "DataRecords" : rows});
             }
         });
-    });
+    });*/
     router.post("/data",function(req,res){
         verify(req, res, connection, hash, function(id) {
             if(req.body.lat != null && req.body.lng != null) {
@@ -240,11 +317,11 @@ REST_ROUTER.prototype.handleRoutes= function(router,connection,hash) {
                 query();
             }
             function query(country, countryCode, city){
-                var query = "INSERT INTO DataRecord(??,??,??,??,??,??,??,??,??,??,??) VALUES (?,?,?,?,?,?,?,?,?,?,?);";
+                var query = "INSERT INTO DataRecord(??,??,??,??,??,??,??,??,??,??,??,??) VALUES (?,?,?,?,?,?,?,?,?,?,?, DATE(?));";
                 var table = ["user_id", "lamp_time", "timer_reset", "serial_number",
-                        "meter_on", "meter_time","gps_lat","gps_lng","country","country_code","city",
+                        "meter_on", "meter_time","gps_lat","gps_lng","country","country_code","city", "time_recorded",
                         id, req.body.lamp_time, req.body.reset, req.body.sn, req.body.meter_on, 
-                        req.body.meter_time, req.body.lat, req.body.lng, country, countryCode, city];
+                        req.body.meter_time, req.body.lat, req.body.lng, country, countryCode, city, req.body.time];
                 query = mysql.format(query,table);
                 connection.query(query,function(err,rows){
                     if(err) {
