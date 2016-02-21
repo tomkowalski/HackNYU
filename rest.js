@@ -164,7 +164,7 @@ REST_ROUTER.prototype.handleRoutes= function(router,connection,hash) {
     });
     router.get("/data/year",function(req,res){
         var query = 'select Count(distinct serial_number) AS number_units, sum(lamp_time) AS total_lamp_time, sum(timer_reset) AS' +
-                    'total_reset, sum(meter_on) AS total_meter_on, sum(meter_time) AS total_meter_time, year(time_recorded) AS year from DataRecord group by YEAR(time_recorded)';
+                    'total_reset, sum(meter_on) AS total_meter_on, sum(meter_in) AS total_meter_in, sum(meter_time) AS total_meter_time, year(time_recorded) AS year from DataRecord group by YEAR(time_recorded)';
         var table = [];
         query = mysql.format(query,table);
         connection.query(query,function(err,rows){
@@ -177,7 +177,7 @@ REST_ROUTER.prototype.handleRoutes= function(router,connection,hash) {
     });
     router.get("/data/year/country/:country_query",function(req,res){
         var query = 'select Count(distinct serial_number) AS number_units, sum(lamp_time) AS total_lamp_time, sum(timer_reset) AS' +
-                    'total_reset, sum(meter_on) AS total_meter_on, sum(meter_time) AS total_meter_time, year(time_recorded) AS year from DataRecord WHERE country=? group by YEAR(time_recorded)';
+                    'total_reset, sum(meter_in) AS total_meter_in, sum(meter_on) AS total_meter_on, sum(meter_time) AS total_meter_time, year(time_recorded) AS year from DataRecord WHERE country=? group by YEAR(time_recorded)';
         var table = [req.params.country_query];
         query = mysql.format(query,table);
         connection.query(query,function(err,rows){
@@ -190,7 +190,7 @@ REST_ROUTER.prototype.handleRoutes= function(router,connection,hash) {
     });
     router.get("/data/month",function(req,res){
         var query = 'select Count(distinct serial_number) AS number_units, sum(lamp_time) AS total_lamp_time, sum(timer_reset) AS total_reset, sum(meter_on)' + 
-        'AS total_meter_on, sum(meter_time) AS total_meter_time, month(time_recorded) AS month from DataRecord WHERE datediff(curDate(),time_recorded) <= 365  group by Month(time_recorded) order by Cast(datediff(date_add(time_recorded, INTERVAL 1 YEAR), curdate())/30 AS unsigned)';
+        'AS total_meter_on, sum(meter_in) AS total_meter_in, sum(meter_time) AS total_meter_time, month(time_recorded) AS month from DataRecord WHERE datediff(curDate(),time_recorded) <= 365  group by Month(time_recorded) order by Cast(datediff(date_add(time_recorded, INTERVAL 1 YEAR), curdate())/30 AS unsigned)';
         var table = [];
         query = mysql.format(query,table);
         connection.query(query,function(err,rows){
@@ -203,7 +203,7 @@ REST_ROUTER.prototype.handleRoutes= function(router,connection,hash) {
     });
     router.get("/data/month/country/:country_query",function(req,res){
        var query = 'select Count(distinct serial_number) AS number_units, sum(lamp_time) AS total_lamp_time, sum(timer_reset) AS total_reset, sum(meter_on)' + 
-        'AS total_meter_on, sum(meter_time) AS total_meter_time, month(time_recorded) AS month from DataRecord WHERE datediff(curDate(),time_recorded) <= 365  group by Month(time_recorded) order by Cast(datediff(date_add(time_recorded, INTERVAL 1 YEAR), curdate())/30 AS unsigned)';
+        'AS total_meter_on, sum(meter_in) AS total_meter_in, sum(meter_time) AS total_meter_time, month(time_recorded) AS month from DataRecord WHERE datediff(curDate(),time_recorded) <= 365  group by Month(time_recorded) order by Cast(datediff(date_add(time_recorded, INTERVAL 1 YEAR), curdate())/30 AS unsigned)';
         var table = [req.params.country_query];
         query = mysql.format(query,table);
         connection.query(query,function(err,rows){
@@ -216,7 +216,7 @@ REST_ROUTER.prototype.handleRoutes= function(router,connection,hash) {
     });
     router.get("/data/year/country",function(req,res){
         var query = 'select Count(distinct serial_number) AS number_units, sum(lamp_time) AS total_lamp_time, sum(timer_reset) AS' +
-                    'total_reset, sum(meter_on) AS total_meter_on, sum(meter_time) AS total_meter_time, year(time_recorded) AS year from DataRecord group by YEAR(time_recorded)';
+                    'total_reset, sum(meter_on) AS total_meter_on, sum(meter_in) AS total_meter_in, sum(meter_time) AS total_meter_time, year(time_recorded) AS year from DataRecord group by YEAR(time_recorded)';
         var table = [];
         query = mysql.format(query,table);
         connection.query(query,function(err,rows){
@@ -241,7 +241,7 @@ REST_ROUTER.prototype.handleRoutes= function(router,connection,hash) {
     });
     router.get("/data/country/:country_query",function(req,res){
         var query = 'Select city, sum(lamp_time) AS total_lamp_time, sum(timer_reset) AS total_reset, sum(meter_on)' +
-        ' AS total_meter_on, sum(meter_time) AS total_meter_time, count(distinct serial_number) AS number_units From DataRecord WHERE country=? GROUP BY city';
+        ' AS total_meter_on, sum(meter_in) AS total_meter_in, sum(meter_time) AS total_meter_time, count(distinct serial_number) AS number_units From DataRecord WHERE country=? GROUP BY city';
         var table = [req.params.country_query];
         query = mysql.format(query,table);
         connection.query(query,function(err,rows){
@@ -317,10 +317,10 @@ REST_ROUTER.prototype.handleRoutes= function(router,connection,hash) {
                 query();
             }
             function query(country, countryCode, city){
-                var query = "INSERT INTO DataRecord(??,??,??,??,??,??,??,??,??,??,??,??) VALUES (?,?,?,?,?,?,?,?,?,?,?, DATE(?));";
+                var query = "INSERT INTO DataRecord(??,??,??,??,??,??,??,??,??,??,??,??,??) VALUES (?,?,?,?,?,?,?,?,?,?,?,?, DATE(?));";
                 var table = ["user_id", "lamp_time", "timer_reset", "serial_number",
-                        "meter_on", "meter_time","gps_lat","gps_lng","country","country_code","city", "time_recorded",
-                        id, req.body.lamp_time, req.body.reset, req.body.sn, req.body.meter_on, 
+                        "meter_on", "meter_in", "meter_time", gps_lat,gps_lng,country,country_code,city,time_recorded,
+                        id, req.body.lamp_time, req.body.reset, req.body.sn, req.body.meter_on,  req.body.meter_in,
                         req.body.meter_time, req.body.lat, req.body.lng, country, countryCode, city, req.body.time];
                 query = mysql.format(query,table);
                 connection.query(query,function(err,rows){
