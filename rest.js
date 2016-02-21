@@ -43,12 +43,12 @@ function verify(req, res, connection, hash, callback) {
         query = mysql.format(query,table);
         connection.query(query,function(err,rows){
             if(err) {
-                res.json({"Error" : true, "Message" : "Error executing MySQL query"});
+                res.json({"Error" : true});
             } else {
                 if(rows.length == 0 || rows.affectedRows <= 0) {
                     res.statusCode = 401;
                     res.setHeader('WWW-Authenticate', 'Basic realm="Secure Area"');
-                    res.json({"Error" : true, "Message" : "Error authenticating"});
+                    res.json({"Error" : true});
                 }
                 else {
                     if(hash.verify(password, rows[0].password)) {   // Is the password correct?
@@ -57,7 +57,7 @@ function verify(req, res, connection, hash, callback) {
                     else {
                         res.statusCode = 401;
                         res.setHeader('WWW-Authenticate', 'Basic realm="Secure Area"');
-                        res.json({"Error" : true, "Message" : "Error authenticating pass"});
+                        res.json({"Error" : true});
                     }
                 }
             }
