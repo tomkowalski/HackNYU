@@ -319,7 +319,7 @@ REST_ROUTER.prototype.handleRoutes= function(router,connection,hash) {
             function query(country, countryCode, city){
                 var query = "INSERT INTO DataRecord(??,??,??,??,??,??,??,??,??,??,??,??,??) VALUES (?,?,?,?,?,?,?,?,?,?,?,?, DATE(?));";
                 var table = ["user_id", "lamp_time", "timer_reset", "serial_number",
-                        "meter_on", "meter_in", "meter_time", gps_lat,gps_lng,country,country_code,city,time_recorded,
+                        "meter_on", "meter_in", "meter_time","gps_lat","gps_lng","country","country_code","city","time_recorded",
                         id, req.body.lamp_time, req.body.reset, req.body.sn, req.body.meter_on,  req.body.meter_in,
                         req.body.meter_time, req.body.lat, req.body.lng, country, countryCode, city, req.body.time];
                 query = mysql.format(query,table);
